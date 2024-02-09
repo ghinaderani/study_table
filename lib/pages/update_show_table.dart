@@ -5,7 +5,6 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:study_table/common/common.dart';
-import 'package:study_table/pages/update_table.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ShowUpdateTable extends StatefulWidget {
@@ -59,16 +58,15 @@ class _ShowUpdateTableState extends State<ShowUpdateTable> {
                     height: 1000,
                     width: double.infinity,
                     child: GridView.builder(
-                        gridDelegate:
-                            SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisSpacing: 10,
-                                mainAxisSpacing: 10,
-                                crossAxisCount: 2),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                            crossAxisCount: 2),
                         itemCount: tables.length,
                         itemBuilder: (context, index) {
                           int people = tables[index]['table_capacity'];
-                          int counter = tables[index]
-                              ['number_of_people_at_this_table'];
+                          int counter =
+                              tables[index]['number_of_people_at_this_table'];
                           bool available = tables[index]['available'];
                           return Padding(
                             padding: const EdgeInsets.all(10),
@@ -81,13 +79,24 @@ class _ShowUpdateTableState extends State<ShowUpdateTable> {
                                     height: 350,
                                     decoration: BoxDecoration(
                                         color: Color(0xffF8853E),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: Colors.white,
+                                              spreadRadius: 1,
+                                              blurRadius: 8,
+                                              offset: Offset(4, 4)),
+                                          BoxShadow(
+                                              color: Color(0xffF8853E),
+                                              spreadRadius: 1,
+                                              blurRadius: 8,
+                                              offset: Offset(-4, -4)),
+                                        ],
                                         borderRadius:
                                             BorderRadius.circular(20)),
                                     child: Column(
                                       children: [
                                         Padding(
-                                          padding:
-                                              const EdgeInsets.all(8.0),
+                                          padding: const EdgeInsets.all(8.0),
                                           child: Row(
                                             children: [
                                               Icon(
@@ -96,9 +105,8 @@ class _ShowUpdateTableState extends State<ShowUpdateTable> {
                                                 color: Colors.white,
                                               ),
                                               Padding(
-                                                padding:
-                                                    const EdgeInsets.only(
-                                                        left: 15),
+                                                padding: const EdgeInsets.only(
+                                                    left: 15),
                                               ),
                                               Text(
                                                 "Table Number :",
@@ -109,8 +117,7 @@ class _ShowUpdateTableState extends State<ShowUpdateTable> {
                                                         FontWeight.bold),
                                               ),
                                               Text(
-                                                tables[index]["id"]
-                                                    .toString(),
+                                                tables[index]["id"].toString(),
                                                 style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 20,
@@ -121,8 +128,7 @@ class _ShowUpdateTableState extends State<ShowUpdateTable> {
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              const EdgeInsets.all(8.0),
+                                          padding: const EdgeInsets.all(8.0),
                                           child: Row(
                                             children: [
                                               Icon(
@@ -131,9 +137,8 @@ class _ShowUpdateTableState extends State<ShowUpdateTable> {
                                                 color: Colors.white,
                                               ),
                                               Padding(
-                                                padding:
-                                                    const EdgeInsets.only(
-                                                        left: 15),
+                                                padding: const EdgeInsets.only(
+                                                    left: 15),
                                               ),
                                               Text(
                                                 "Category :",
@@ -155,8 +160,7 @@ class _ShowUpdateTableState extends State<ShowUpdateTable> {
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              const EdgeInsets.all(8.0),
+                                          padding: const EdgeInsets.all(8.0),
                                           child: Column(
                                             children: [
                                               Row(
@@ -168,8 +172,8 @@ class _ShowUpdateTableState extends State<ShowUpdateTable> {
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsets
-                                                            .only(left: 15),
+                                                        const EdgeInsets.only(
+                                                            left: 15),
                                                   ),
                                                   Text(
                                                     "table Capacity :",
@@ -177,8 +181,7 @@ class _ShowUpdateTableState extends State<ShowUpdateTable> {
                                                         color: Colors.white,
                                                         fontSize: 20,
                                                         fontWeight:
-                                                            FontWeight
-                                                                .bold),
+                                                            FontWeight.bold),
                                                   ),
                                                   IconButton(
                                                       onPressed: () {
@@ -197,8 +200,8 @@ class _ShowUpdateTableState extends State<ShowUpdateTable> {
                                                                 color: Colors
                                                                     .white),
                                                         child: Center(
-                                                          child: Icon(Icons
-                                                              .minimize),
+                                                          child: Icon(
+                                                              Icons.minimize),
                                                         ),
                                                       )),
                                                   Text(
@@ -207,8 +210,7 @@ class _ShowUpdateTableState extends State<ShowUpdateTable> {
                                                         color: Colors.white,
                                                         fontSize: 20,
                                                         fontWeight:
-                                                            FontWeight
-                                                                .bold),
+                                                            FontWeight.bold),
                                                   ),
                                                   IconButton(
                                                       onPressed: () {
@@ -219,24 +221,23 @@ class _ShowUpdateTableState extends State<ShowUpdateTable> {
                                                         });
                                                       },
                                                       icon: Container(
-                                                          decoration: BoxDecoration(
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                              color: Colors
-                                                                  .white),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                                  shape: BoxShape
+                                                                      .circle,
+                                                                  color: Colors
+                                                                      .white),
                                                           child: Center(
-                                                            child: Icon(
-                                                                Icons.add),
+                                                            child:
+                                                                Icon(Icons.add),
                                                           ))),
                                                 ],
                                               ),
-                                              
                                             ],
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              const EdgeInsets.all(8.0),
+                                          padding: const EdgeInsets.all(8.0),
                                           child: Column(
                                             children: [
                                               Row(
@@ -248,8 +249,8 @@ class _ShowUpdateTableState extends State<ShowUpdateTable> {
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsets
-                                                            .only(left: 15),
+                                                        const EdgeInsets.only(
+                                                            left: 15),
                                                   ),
                                                   Text(
                                                     "Number of people at ",
@@ -257,8 +258,7 @@ class _ShowUpdateTableState extends State<ShowUpdateTable> {
                                                         color: Colors.white,
                                                         fontSize: 20,
                                                         fontWeight:
-                                                            FontWeight
-                                                                .bold),
+                                                            FontWeight.bold),
                                                   ),
                                                 ],
                                               ),
@@ -270,8 +270,7 @@ class _ShowUpdateTableState extends State<ShowUpdateTable> {
                                                         color: Colors.white,
                                                         fontSize: 20,
                                                         fontWeight:
-                                                            FontWeight
-                                                                .bold),
+                                                            FontWeight.bold),
                                                   ),
                                                   IconButton(
                                                       onPressed: () {
@@ -283,14 +282,15 @@ class _ShowUpdateTableState extends State<ShowUpdateTable> {
                                                         });
                                                       },
                                                       icon: Container(
-                                                          decoration: BoxDecoration(
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                              color: Colors
-                                                                  .white),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                                  shape: BoxShape
+                                                                      .circle,
+                                                                  color: Colors
+                                                                      .white),
                                                           child: Center(
-                                                            child: Icon(Icons
-                                                                .minimize),
+                                                            child: Icon(
+                                                                Icons.minimize),
                                                           ))),
                                                   Text(
                                                     counter.toString(),
@@ -298,8 +298,7 @@ class _ShowUpdateTableState extends State<ShowUpdateTable> {
                                                         color: Colors.white,
                                                         fontSize: 20,
                                                         fontWeight:
-                                                            FontWeight
-                                                                .bold),
+                                                            FontWeight.bold),
                                                   ),
                                                   IconButton(
                                                     onPressed: () {
@@ -317,8 +316,8 @@ class _ShowUpdateTableState extends State<ShowUpdateTable> {
                                                                 color: Colors
                                                                     .white),
                                                         child: Center(
-                                                          child: Icon(
-                                                              Icons.add),
+                                                          child:
+                                                              Icon(Icons.add),
                                                         )),
                                                   ),
                                                 ],
@@ -329,7 +328,8 @@ class _ShowUpdateTableState extends State<ShowUpdateTable> {
                                         Row(
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsets.only(left: 10),
+                                              padding: const EdgeInsets.only(
+                                                  left: 10),
                                               child: Icon(
                                                 Icons.event_available,
                                                 size: 20,
@@ -337,17 +337,15 @@ class _ShowUpdateTableState extends State<ShowUpdateTable> {
                                               ),
                                             ),
                                             Padding(
-                                              padding:
-                                                  const EdgeInsets.only(
-                                                      left: 15),
+                                              padding: const EdgeInsets.only(
+                                                  left: 15),
                                             ),
                                             Text(
                                               "Is available :",
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 20,
-                                                  fontWeight:
-                                                      FontWeight.bold),
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                             Text(
                                               tables[index]['available']
@@ -355,17 +353,14 @@ class _ShowUpdateTableState extends State<ShowUpdateTable> {
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 20,
-                                                  fontWeight:
-                                                      FontWeight.bold),
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                             Padding(
-                                              padding:
-                                                  const EdgeInsets.only(
-                                                      left: 10),
+                                              padding: const EdgeInsets.only(
+                                                  left: 10),
                                               child: Switch(
                                                   // focusColor: Color(0xff022842),
-                                                  activeColor:
-                                                      Colors.white,
+                                                  activeColor: Colors.white,
                                                   // focusColor: Colors.amber,
                                                   inactiveThumbColor:
                                                       Colors.grey,
@@ -373,108 +368,111 @@ class _ShowUpdateTableState extends State<ShowUpdateTable> {
                                                   value: available,
                                                   onChanged: (value) {
                                                     setState(() {
-                                                      tables[index][
-                                                              'available'] =
-                                                          value;
+                                                      tables[index]
+                                                          ['available'] = value;
                                                     });
                                                   }),
                                             )
                                           ],
                                         ),
-                                         _isLoading
-                                      ? Center(
-                                          child:
-                                              CircularProgressIndicator(),
-                                        )
-                                      : Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 10),
-                                          child: InkWell(
-                                              onTap: () async {
-                                                setState(() {
-                                                  _isLoading = true;
-                                                });
-                                                try {
-                                              
-                                                await client
-                                                    .from('tables')
-                                                    .update({
-                                                  "available": true,
-                                                  "table_capacity":
-                                                      int.parse(people
-                                                          .toString()),
-                                                  "number_of_people_at_this_table":
-                                                      int.parse(counter
-                                                          .toString()),
-                                                }).match({
-                                                  "id": tables[index]['id'],
-                                                });
-                                              
-                                                ScaffoldMessenger.of(
-                                                        context)
-                                                    .showSnackBar(SnackBar(
-                                                  content: Text('Success'),
-                                                  backgroundColor:
-                                                      Colors.green,
-                                                ));
-                                                Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => ShowUpdateTable()));
-                                                } catch (e) {
-                                                ScaffoldMessenger.of(
-                                                        context)
-                                                    .showSnackBar(SnackBar(
-                                                  content: Text(
-                                                      'Your table has not added'),
-                                                  backgroundColor:
-                                                      Colors.red,
-                                                ));
-                                                setState(() {
-                                                  _isLoading = false;
-                                                });
-                                                }
-                                              },
-                                              child: Container(
-                                                height: 50,
-                                                width: 200,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          30),
-                                                  color: Colors.white,
-                                                  gradient:
-                                                      const LinearGradient(
-                                                    begin:
-                                                        Alignment.topLeft,
-                                                    end: Alignment
-                                                        .bottomRight,
-                                                    tileMode:
-                                                        TileMode.clamp,
-                                                    colors: [
-                                                      Color(0xff004D74),
-                                                      Color(0xff003554),
-                                                    ],
-                                                  ),
-                                                ),
-                                                child: Center(
-                                                  child: Text(
-                                                    'Save',
-                                                    style: TextStyle(
+                                        _isLoading
+                                            ? Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              )
+                                            : Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 10),
+                                                child: InkWell(
+                                                    onTap: () async {
+                                                      setState(() {
+                                                        _isLoading = true;
+                                                      });
+                                                      try {
+                                                        await client
+                                                            .from('tables')
+                                                            .update({
+                                                          "available": true,
+                                                          "table_capacity":
+                                                              int.parse(people
+                                                                  .toString()),
+                                                          "number_of_people_at_this_table":
+                                                              int.parse(counter
+                                                                  .toString()),
+                                                        }).match({
+                                                          "id": tables[index]
+                                                              ['id'],
+                                                        });
+
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                                SnackBar(
+                                                          content:
+                                                              Text('Success'),
+                                                          backgroundColor:
+                                                              Colors.green,
+                                                        ));
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        ShowUpdateTable()));
+                                                      } catch (e) {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                                SnackBar(
+                                                          content: Text(
+                                                              'Your table has not added'),
+                                                          backgroundColor:
+                                                              Colors.red,
+                                                        ));
+                                                        setState(() {
+                                                          _isLoading = false;
+                                                        });
+                                                      }
+                                                    },
+                                                    child: Container(
+                                                      height: 50,
+                                                      width: 200,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(30),
                                                         color: Colors.white,
-                                                        fontSize: 20,
-                                                        fontWeight:
-                                                            FontWeight
-                                                                .bold),
-                                                  ),
-                                                ),
-                                              )),
-                                        ),
+                                                        gradient:
+                                                            const LinearGradient(
+                                                          begin:
+                                                              Alignment.topLeft,
+                                                          end: Alignment
+                                                              .bottomRight,
+                                                          tileMode:
+                                                              TileMode.clamp,
+                                                          colors: [
+                                                            Color(0xff004D74),
+                                                            Color(0xff003554),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      child: Center(
+                                                        child: Text(
+                                                          'Save',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ),
+                                                    )),
+                                              ),
                                       ],
                                     ),
-                                    
                                   ),
-                                 
                                 ],
                               ),
                             ),

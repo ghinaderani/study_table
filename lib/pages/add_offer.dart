@@ -1,24 +1,22 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:study_table/notification/notification_service.dart';
 import 'package:study_table/pages/update_show_table.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class AddTable extends StatefulWidget {
-  const AddTable({super.key});
+class AddOffer extends StatefulWidget {
+  const AddOffer({super.key});
 
   @override
-  State<AddTable> createState() => _AddTableState();
+  State<AddOffer> createState() => _AddOfferState();
 }
 
 bool dropDownValue = false;
 
-class _AddTableState extends State<AddTable> {
+class _AddOfferState extends State<AddOffer> {
   bool _isLoading = false;
-  final _idController = TextEditingController();
-  final _categoryController = TextEditingController();
-  final _availableController = TextEditingController();
-  final _tableCapacityController = TextEditingController();
-  final _numberOfPeopleAtThisTableController = TextEditingController();
+  final _offerNameController = TextEditingController();
+  final _priceController = TextEditingController();
   final _addkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -34,7 +32,7 @@ class _AddTableState extends State<AddTable> {
                     Padding(
                       padding: const EdgeInsets.all(50),
                       child: Text(
-                        "Add Table",
+                        "Add Offer",
                         style: TextStyle(
                             color: Color(0xffF8853E),
                             fontSize: 60,
@@ -46,39 +44,7 @@ class _AddTableState extends State<AddTable> {
                       child: Container(
                         width: 500,
                         child: TextFormField(
-                          controller: _idController,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(
-                                color: Color(0xffF8853E),
-                              ),
-                            ),
-                            disabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(color: Colors.transparent),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(color: Colors.transparent),
-                            ),
-                            label: Text(
-                              "Table Number",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Container(
-                        width: 500,
-                        child: TextFormField(
-                          controller: _categoryController,
+                          controller: _offerNameController,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
@@ -95,7 +61,7 @@ class _AddTableState extends State<AddTable> {
                               borderSide: BorderSide(color: Colors.transparent),
                             ),
                             label: Text(
-                              "category",
+                              "Offer Name",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 15,
@@ -105,52 +71,12 @@ class _AddTableState extends State<AddTable> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Container(
-                        width: 500,
-                        child: DropdownButton(
-                          // elevation: 20,
-                          alignment: Alignment.topLeft,
-                          underline: Container(),
-                          borderRadius: BorderRadius.all(Radius.circular(20),),
-                          dropdownColor: Color(0xff004D74),
-                          isExpanded: true,
-                          autofocus: true,
-                          padding: EdgeInsets.only(left: 15),
-                          value: dropDownValue,
-                          items: const [
-                            DropdownMenuItem<bool>(
-                              value: false,
-                              child: Text(
-                                "False",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                            DropdownMenuItem<bool>(
-                              value: true,
-                              child: Text(
-                                "True",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ],
-                          onChanged: (value) {
-                            setState(
-                              () {
-                                dropDownValue = value!;
-                              },
-                            );
-                          },
-                        ),
-                      ),
-                    ),
                     Container(
-                      width: 500,
+                      width: 530,
                       child: Padding(
                         padding: const EdgeInsets.all(20),
                         child: TextFormField(
-                          controller: _tableCapacityController,
+                          controller: _priceController,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
@@ -167,39 +93,7 @@ class _AddTableState extends State<AddTable> {
                               borderSide: BorderSide(color: Colors.transparent),
                             ),
                             label: Text(
-                              "Table capacity",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 500,
-                      child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: TextFormField(
-                          controller: _numberOfPeopleAtThisTableController,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(
-                                color: Color(0xffF8853E),
-                              ),
-                            ),
-                            disabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(color: Colors.transparent),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(color: Colors.transparent),
-                            ),
-                            label: Text(
-                              "number of people at this table",
+                              "price",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 15,
@@ -225,24 +119,13 @@ class _AddTableState extends State<AddTable> {
                                     // await Supabase.instance.client.from("roomss").insert({"body": value});
                                     // },
                                     await Supabase.instance.client
-                                        .from('tables')
+                                        .from('offer_and_prices')
                                         .insert({
-                                      "id": int.parse(
-                                        _idController.text,
+                                      "offer_name": _offerNameController.text,
+                                      "price": int.parse(
+                                        _priceController.text,
                                       ),
-                                      "category": _categoryController.text,
-                                      "available": dropDownValue,
-                                      "table_capacity": int.parse(
-                                        _tableCapacityController.text,
-                                      ),
-                                      "number_of_people_at_this_table": int.parse(
-                                          _numberOfPeopleAtThisTableController
-                                              .text),
                                     });
-
-                                    //  client.auth.signUp(
-                                    //     email: _emailController.text,
-                                    //     password: _passwordController.text);
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(SnackBar(
                                       content: Text('Success'),
@@ -253,10 +136,17 @@ class _AddTableState extends State<AddTable> {
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 ShowUpdateTable()));
+                                    // NotificationService().simpleNotificationShow();
+                                    NotificationService.showNotification(
+                                        title: "Title of the notification",
+                                        body: "Body of the notification",
+                                        summary: "Small Summary",
+                                        notificationLayout:
+                                            NotificationLayout.Inbox);
                                   } catch (e) {
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(SnackBar(
-                                      content: Text('Your table has not added'),
+                                      content: Text('Your offer has not added'),
                                       backgroundColor: Colors.red,
                                     ));
                                     setState(() {
